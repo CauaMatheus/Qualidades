@@ -6,16 +6,16 @@ module.exports = ({ strapi }) => ({
   async find(ctx) {
     try {
       const gateways = await strapi
-      .plugin('pagamento')
-      .service('gateway')
-      .find();
+        .plugin('pagamento')
+        .service('gateway')
+        .find();
 
       ctx.status = 200;
       ctx.body = gateways;
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;
@@ -24,16 +24,16 @@ module.exports = ({ strapi }) => ({
   async ativado(ctx) {
     try {
       const gateways = await strapi
-      .plugin('pagamento')
-      .service('gateway')
-      .ativado();
+        .plugin('pagamento')
+        .service('gateway')
+        .ativado();
 
       ctx.status = 200;
       ctx.body = gateways;
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;
@@ -43,16 +43,16 @@ module.exports = ({ strapi }) => ({
     try {
       const { id } = ctx.params;
       const gateways = await strapi
-      .plugin('pagamento')
-      .service('gateway')
-      .findOne(id);
+        .plugin('pagamento')
+        .service('gateway')
+        .findOne(id);
 
       ctx.status = 200;
       ctx.body = gateways;
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;
@@ -73,7 +73,7 @@ module.exports = ({ strapi }) => ({
             const res = await axios(configGateway);
             body.token = res.access_token;
           } catch (error) {
-            throw new Error(`Erro em validar credenciais! Verifique as informações`);
+            throw new Error('Erro em validar credenciais! Verifique as informações');
           }
         }
       }
@@ -94,7 +94,7 @@ module.exports = ({ strapi }) => ({
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;
@@ -119,7 +119,7 @@ module.exports = ({ strapi }) => ({
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;

@@ -1,12 +1,12 @@
-const config = require("../helpers/config");
-const axios = require("axios");
+const config = require('../helpers/config');
+const axios = require('axios');
 
 function getValueFromObjectByPath(path, obj) {
-  const paths = path.split("||");
+  const paths = path.split('||');
   let value = obj;
   let find = false;
   for (const p of paths) {
-    const keys = p.split(".");
+    const keys = p.split('.');
     let value = obj;
 
     if (find == false) {
@@ -63,13 +63,13 @@ function parseJSONRecursively(jsonString) {
   const jsonObject = JSON.parse(jsonString);
   const parseNestedJSON = (obj) => {
     for (const key in obj) {
-      if (typeof obj[key] === "string") {
+      if (typeof obj[key] === 'string') {
         try {
           obj[key] = parseJSONRecursively(obj[key]);
         } catch (error) {
           // Ignorar a string que não é um JSON válido
         }
-      } else if (typeof obj[key] === "object") {
+      } else if (typeof obj[key] === 'object') {
         parseNestedJSON(obj[key]);
       }
     }
@@ -80,7 +80,7 @@ function parseJSONRecursively(jsonString) {
 }
 
 function run(string, dado) {
-  if (string === "") {
+  if (string === '') {
     return {};
   } else {
     let inputJSON;
@@ -92,7 +92,7 @@ function run(string, dado) {
 }
 
 function getTotal(extrato) {
-  if (extrato.hasOwnProperty("itens")) {
+  if (extrato.hasOwnProperty('itens')) {
     return extrato.itens.reduce(
       (total, item) => total + item.quantidade * item.valor,
       0
@@ -103,7 +103,7 @@ function getTotal(extrato) {
 
 function getDueDate() {
   var currentDate = new Date();
-  var formattedDate = currentDate.toISOString().split("T")[0];
+  var formattedDate = currentDate.toISOString().split('T')[0];
   return formattedDate;
 }
 
@@ -113,12 +113,12 @@ function substituirValores(inputJSON, dado) {
   for (const key in inputJSON) {
     if (inputJSON.hasOwnProperty(key)) {
       const value = inputJSON[key];
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         if (extractValue(value)) {
           // valor dentro de um extract value
-          if (value === "${valorTotal}") {
+          if (value === '${valorTotal}') {
             outputJSON[key] = getTotal(dado.extrato);
-          } else if (value === "${dataHoje}") {
+          } else if (value === '${dataHoje}') {
             outputJSON[key] = getDueDate();
           } else {
             outputJSON[key] = getValueFromObjectByPath(
@@ -131,8 +131,8 @@ function substituirValores(inputJSON, dado) {
           outputJSON[key] = value;
         }
       } else if (
-        (typeof value === "number" && Number.isFinite(value)) ||
-        typeof value === "boolean"
+        (typeof value === 'number' && Number.isFinite(value)) ||
+        typeof value === 'boolean'
       ) {
         outputJSON[key] = value;
       } else if (Array.isArray(value)) {
@@ -170,7 +170,7 @@ function configDefault(gateway, extrato) {
     body: run(gateway.pagamento_dados, data),
     headers: {
       Authorization: `Bearer ${gateway.token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     params: run(gateway.pagamento_params, data),
   };

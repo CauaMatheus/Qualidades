@@ -5,7 +5,7 @@ async function setAuthenticatedPermissions(newPermissions, publicRole) {
   Object.keys(newPermissions).map((controller) => {
     const actions = newPermissions[controller];
     const permissionsToCreate = actions.map((action) => {
-      return strapi.query("plugin::users-permissions.permission").create({
+      return strapi.query('plugin::users-permissions.permission').create({
         data: {
           action: `api::${controller}.${controller}.${action}`,
           role: publicRole.id,
@@ -18,12 +18,12 @@ async function setAuthenticatedPermissions(newPermissions, publicRole) {
 }
 async function boostrapPermissions(){
   const authenticatedRole = await strapi
-  .query("plugin::users-permissions.role")
-  .findOne({
-    where: {
-      type: "authenticated",
-    },
-  });
+    .query('plugin::users-permissions.role')
+    .findOne({
+      where: {
+        type: 'authenticated',
+      },
+    });
   await setAuthenticatedPermissions({
     'assinante' : ['create','delete','find','findOne','update'],
     'cesta' : ['create','delete','find','findOne','update'],
@@ -37,9 +37,9 @@ async function boostrapPermissions(){
   }, authenticatedRole );
   // se necessario pegar a const defaultRole = await strapi.query('plugin::users-permissions.role').findOne({}, []);
   
-  await strapi.query("plugin::users-permissions.permission").create({
+  await strapi.query('plugin::users-permissions.permission').create({
     data: {
-      action: `plugin::users-permissions.user.update`,
+      action: 'plugin::users-permissions.user.update',
       role: authenticatedRole.id,
     },
   });

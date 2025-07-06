@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-const axios = require("axios");
-const gatewayRequests = require("../../utils/gateway");
+const axios = require('axios');
+const gatewayRequests = require('../../utils/gateway');
 
 module.exports = ({ strapi }) => ({
   async find(ctx) {
     try {
       const extrato = await strapi
-        .plugin("pagamento")
-        .service("extrato")
+        .plugin('pagamento')
+        .service('extrato')
         .find();
 
       ctx.status = 200;
@@ -16,7 +16,7 @@ module.exports = ({ strapi }) => ({
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;
@@ -27,16 +27,16 @@ module.exports = ({ strapi }) => ({
       const body = ctx.request.body;
 
       if (body === undefined || Object.keys(body).length === 0) {
-        throw new Error("Body não está definido");
+        throw new Error('Body não está definido');
       }
 
       const gateway = await strapi
-        .plugin("pagamento")
-        .service("gateway")
+        .plugin('pagamento')
+        .service('gateway')
         .findGateway(body.gateway.nome);
       const extrato = await strapi
-        .plugin("pagamento")
-        .service("extrato")
+        .plugin('pagamento')
+        .service('extrato')
         .findOne(body.extrato.id);
       const data = {
         extrato: extrato[0],
@@ -45,8 +45,8 @@ module.exports = ({ strapi }) => ({
       const url = await gatewayRequests.linkRequest(body.gateway.nome, data);
 
       let pagamento = await strapi
-        .plugin("pagamento")
-        .service("pagamento")
+        .plugin('pagamento')
+        .service('pagamento')
         .create(body.extrato.id, body.gateway.id, url);
 
       ctx.status = 200;
@@ -54,7 +54,7 @@ module.exports = ({ strapi }) => ({
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;

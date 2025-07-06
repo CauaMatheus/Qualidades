@@ -15,35 +15,35 @@ module.exports = {
         throw new Error('Body não está definido');
       }
       const data = await strapi
-        .service("api::devices.devices")
+        .service('api::devices.devices')
         .update(body);
 
       ctx.body = data;
     } catch (err) {
-      ctx.badRequest("Devices error", { moreDetails: err });
+      ctx.badRequest('Devices error', { moreDetails: err });
     }
   },
   async findUserExpoPushToken(ctx, next) {
     try {
       const { user_id } = ctx.params;
       const data = await strapi
-        .service("api::devices.devices")
+        .service('api::devices.devices')
         .findUserExpoPushToken(user_id);
 
       if (data.expoPushToken) {
         ctx.status = 200;
         ctx.body = {
-          mensagem: "Device encontrado!",
+          mensagem: 'Device encontrado!',
           device_id: data.expoPushToken,
           status: 200,
         };
       } else {
-        ctx.body = { mensagem: "Device não encontrado!", status: 404 };
+        ctx.body = { mensagem: 'Device não encontrado!', status: 404 };
       }
     } catch (error) {
       ctx.body = {
         message:
-          "Ops! Aconteceu tivemos um problema em processar sua requisição.",
+          'Ops! Aconteceu tivemos um problema em processar sua requisição.',
         error: error.message,
       };
       ctx.status = 400;

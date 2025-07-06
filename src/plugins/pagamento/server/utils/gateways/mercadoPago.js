@@ -1,4 +1,4 @@
-const mercadopago = require("mercadopago");
+const mercadopago = require('mercadopago');
 
 async function linkRequest(gateway, itens) {
   mercadopago.configure({
@@ -9,7 +9,7 @@ async function linkRequest(gateway, itens) {
       title: objeto.produto_avulso.nome
         ? objeto.produto_avulso.nome
         : objeto.plano.nome,
-      currency_id: "BRL",
+      currency_id: 'BRL',
       unit_price: objeto.valor,
       quantity: objeto.quantidade,
     })),

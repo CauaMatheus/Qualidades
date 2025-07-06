@@ -1,5 +1,5 @@
 function isDefaultRoute(url) {
-    if (!url.startsWith('/admin')
+  if (!url.startsWith('/admin')
         && !url.startsWith('/i18n')
         && !url.startsWith('/content')
         && !url.startsWith('/upload')
@@ -14,10 +14,10 @@ function isDefaultRoute(url) {
         && !url.startsWith('/_health')        
         && url != '/'
         && url != '' ){
-        return false
-    } else{
-        return true
-    }
+    return false;
+  } else{
+    return true;
+  }
 }
 
 module.exports = { isDefaultRoute };

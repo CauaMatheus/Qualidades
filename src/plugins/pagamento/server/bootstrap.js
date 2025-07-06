@@ -12,10 +12,10 @@ async function defaultGateway() {
       }
     ];
 
-    await strapi.db.query("plugin::pagamento.gateway").createMany({data: dadosIniciais});
+    await strapi.db.query('plugin::pagamento.gateway').createMany({data: dadosIniciais});
   }
 }
 
 module.exports = ({ strapi }) => {
-    defaultGateway();
+  defaultGateway();
 };
